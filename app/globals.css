@@ -1,0 +1,259 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- Design tokens ---------- */
+:root {
+  --background: oklch(0.99 0.002 270);
+  --foreground: oklch(0.2 0.01 270);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.01 270);
+  --muted: oklch(0.965 0.004 270);
+  --muted-foreground: oklch(0.5 0.015 270);
+  --border: oklch(0.915 0.006 270);
+  --input: oklch(0.9 0.006 270);
+  --primary: oklch(0.2 0.01 270);
+  --primary-foreground: oklch(0.99 0 0);
+  --accent: oklch(0.55 0.2 275);
+  --accent-2: oklch(0.65 0.14 220);
+  --ring: oklch(0.55 0.2 275 / 0.5);
+  --success: oklch(0.62 0.16 155);
+  --destructive: oklch(0.58 0.22 25);
+  --dot: oklch(0.2 0.01 270 / 0.13);
+  --dot-strong: oklch(0.55 0.2 275 / 0.55);
+  --glow: oklch(0.6 0.2 275 / 0.14);
+}
+
+.dark {
+  --background: oklch(0.13 0.005 270);
+  --foreground: oklch(0.97 0.003 270);
+  --card: oklch(0.165 0.006 270);
+  --card-foreground: oklch(0.97 0.003 270);
+  --muted: oklch(0.2 0.006 270);
+  --muted-foreground: oklch(0.68 0.012 270);
+  --border: oklch(1 0 0 / 0.08);
+  --input: oklch(1 0 0 / 0.12);
+  --primary: oklch(0.97 0.003 270);
+  --primary-foreground: oklch(0.16 0.006 270);
+  --accent: oklch(0.72 0.16 280);
+  --accent-2: oklch(0.78 0.12 215);
+  --ring: oklch(0.72 0.16 280 / 0.55);
+  --success: oklch(0.75 0.16 155);
+  --destructive: oklch(0.68 0.2 25);
+  --dot: oklch(1 0 0 / 0.09);
+  --dot-strong: oklch(0.78 0.14 280 / 0.75);
+  --glow: oklch(0.6 0.2 280 / 0.22);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-destructive: var(--destructive);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.75rem;
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+  --animate-pulse-soft: pulse-soft 2.4s ease-in-out infinite;
+  --animate-page-in: page-in 0.5s cubic-bezier(0.21, 0.47, 0.32, 0.98) both;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-aurora-1: aurora-1 22s ease-in-out infinite;
+  --animate-aurora-2: aurora-2 26s ease-in-out infinite;
+  --animate-aurora-3: aurora-3 30s ease-in-out infinite;
+
+  @keyframes aurora-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(12%, 8%) scale(1.12); }
+    66% { transform: translate(-8%, 4%) scale(0.94); }
+  }
+  @keyframes aurora-2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    40% { transform: translate(-14%, 10%) scale(0.9); }
+    70% { transform: translate(6%, -4%) scale(1.1); }
+  }
+  @keyframes aurora-3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-10%, -12%) scale(1.15); }
+  }
+  --animate-word: word-in 0.6s cubic-bezier(0.21, 0.47, 0.32, 0.98) both;
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.21, 0.47, 0.32, 0.98) both;
+
+  @keyframes word-in {
+    from { opacity: 0; transform: translateY(0.35em); filter: blur(8px); }
+    to { opacity: 1; transform: none; filter: blur(0); }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @keyframes page-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes shimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+  }
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.6); }
+  }
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--accent) 30%, transparent);
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ---------- Utilities ---------- */
+@utility container-page {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 40rem) { padding-inline: 2rem; }
+}
+
+@utility text-gradient {
+  background: linear-gradient(120deg, var(--foreground) 20%, color-mix(in oklch, var(--foreground) 55%, var(--accent)) 60%, var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-dots {
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+
+@utility bg-dots-strong {
+  background-image: radial-gradient(var(--dot-strong) 1.2px, transparent 1.6px);
+  background-size: 22px 22px;
+}
+
+/* Fine film grain — adds texture so gradients never look flat or banded. */
+@utility bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+@utility glass {
+  background: color-mix(in oklch, var(--background) 70%, transparent);
+  backdrop-filter: saturate(160%) blur(16px);
+  -webkit-backdrop-filter: saturate(160%) blur(16px);
+}
+
+@utility mask-fade-b {
+  mask-image: linear-gradient(to bottom, black 55%, transparent);
+}
+
+@utility mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+}
+
+@utility mask-radial {
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+/* Card with a soft spotlight that follows the pointer (set --x / --y from JS). */
+@utility spotlight {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: radial-gradient(420px circle at var(--x, 50%) var(--y, 50%), var(--glow), transparent 45%);
+  }
+  &:hover::before { opacity: 1; }
+}
+
+.intro-seen .intro-loader {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro-loader { display: none; }
+}
+
+@keyframes accordion-down {
+  from { height: 0; opacity: 0; }
+  to { height: var(--radix-accordion-content-height); opacity: 1; }
+}
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); opacity: 1; }
+  to { height: 0; opacity: 0; }
+}
+
+
+/* Circular theme reveal (see components/theme-toggle.tsx). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  z-index: 2;
+}

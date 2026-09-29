@@ -103,7 +103,7 @@ export function estimate(input: EstimateInput): Estimate {
   let budgetNote: string | undefined;
   if (Number.isFinite(budget.max) && budget.max < price[0]) {
     budgetNote =
-      "Your budget is below this estimate. That's okay — on a call we can trim the first version to what matters most and plan the rest for later.";
+      "Your budget is below this estimate. That's okay — over a few messages we can trim the first version to what matters most and plan the rest for later.";
   }
 
   return { price, weeks, stack, summary, budgetNote };

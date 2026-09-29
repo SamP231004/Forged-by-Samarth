@@ -97,7 +97,7 @@ export function Estimator() {
           </h2>
           <p className="mt-5 text-pretty leading-relaxed text-muted-foreground sm:text-lg">
             Answer four quick questions and get an instant estimate for timeline, budget and the stack I&apos;d
-            recommend. No sign-up, no sales call required.
+            recommend. No sign-up, no sales calls.
           </p>
         </Reveal>
 
@@ -408,7 +408,7 @@ function Result({
 
       <p className="mt-3 text-xs text-muted-foreground">
         This is a rough, automated range to help you plan — not a quote. I&apos;ll give you a precise, written quote
-        after a short call.
+        after a few messages about the details.
       </p>
 
       <div className="mt-6 flex flex-col gap-3 border-t border-border pt-6">

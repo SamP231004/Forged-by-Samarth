@@ -2,7 +2,8 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, m } from "framer-motion";
-import { ArrowRight, CalendarDays, CheckCircle2, Loader2, Mail, Paperclip, Upload, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, Loader2, Mail, MessagesSquare, Paperclip, Upload, X } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Magnetic } from "@/components/motion/magnetic";
@@ -24,9 +25,9 @@ import {
 } from "@/lib/validations";
 
 const nextSteps = [
-  "I read your message personally — usually within 24 hours.",
-  "We book a free 30-minute call to talk through your goals.",
-  "You get a written proposal with scope, timeline and a quote.",
+  "I read your message personally and reply within 24 hours.",
+  "We talk through your goals in chat — at your pace, no calls needed.",
+  "You get a written proposal and a simple contract to approve online.",
 ];
 
 export function Contact() {
@@ -106,15 +107,16 @@ export function Contact() {
           </h2>
           <p className="mt-6 text-pretty leading-relaxed text-muted-foreground sm:text-lg">
             Tell me what you&apos;re working on. Whether it&apos;s a rough idea or a detailed spec, I&apos;ll reply
-            personally with honest thoughts on how I can help — or who can, if I&apos;m not the right fit.
+            personally with honest thoughts on how I can help — or who can, if I&apos;m not the right fit. Everything
+            happens in writing: sign in to chat here, use the form, or DM me.
           </p>
 
           <div className="mt-8 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
             <Magnetic>
               <Button asChild>
-                <a href={site.calendly} target="_blank" rel="noopener noreferrer">
-                  <CalendarDays /> Schedule a call
-                </a>
+                <Link href="/chat">
+                  <MessagesSquare /> Chat with me
+                </Link>
               </Button>
             </Magnetic>
             <Button asChild variant="outline">

@@ -1,15 +1,23 @@
 "use client";
 
 import { AnimatePresence, m } from "framer-motion";
-import { Mail, MessageCircle, X } from "lucide-react";
+import { Mail, MessageCircle, MessagesSquare, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { links, site } from "@/lib/site";
 import { TelegramIcon, WhatsappIcon } from "@/components/ui/brand-icons";
 
 const channels = [
   {
+    label: "Chat on this site",
+    hint: "Sign in with email · history saved",
+    href: "/chat",
+    Icon: MessagesSquare,
+    tint: "bg-foreground/10 text-foreground",
+  },
+  {
     label: "WhatsApp",
-    hint: "Usually the fastest reply",
+    hint: "Quick questions",
     href: links.whatsapp(),
     Icon: WhatsappIcon,
     tint: "bg-[#25D366]/15 text-[#25D366]",
@@ -33,6 +41,7 @@ const channels = [
 export function FloatingChat() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!open) return;
@@ -47,6 +56,9 @@ export function FloatingChat() {
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);
+
+  // The chat pages are the conversation already.
+  if (["/chat", "/inbox", "/login"].some((p) => pathname.startsWith(p))) return null;
 
   return (
     <div ref={ref} className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
@@ -69,8 +81,8 @@ export function FloatingChat() {
                 <span className="absolute bottom-0 right-0 size-2.5 rounded-full border-2 border-background bg-success" />
               </span>
               <div>
-                <p className="text-sm font-medium">Chat with Samarth</p>
-                <p className="text-xs text-muted-foreground">I reply personally, usually within a day.</p>
+                <p className="text-sm font-medium">Message Samarth</p>
+                <p className="text-xs text-muted-foreground">No calls — I reply personally, usually within a day.</p>
               </div>
             </div>
             <ul className="space-y-1">
@@ -78,7 +90,7 @@ export function FloatingChat() {
                 <li key={label}>
                   <a
                     href={href}
-                    target={label === "Email" ? undefined : "_blank"}
+                    target={href.startsWith("http") ? "_blank" : undefined}
                     rel="noopener noreferrer"
                     className="group flex items-center gap-3 rounded-2xl p-3 transition-colors hover:bg-muted"
                   >

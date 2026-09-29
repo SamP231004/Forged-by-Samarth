@@ -57,12 +57,12 @@ export const services = [
 export const process = [
   {
     title: "Discovery",
-    body: "A relaxed call about your goals, users and constraints. I ask a lot of questions so we agree on what success looks like before any code is written.",
+    body: "A written back-and-forth in chat about your goals, users and constraints — at your pace, no calls needed. I ask a lot of questions so we agree on what success looks like before any code is written.",
     duration: "1–3 days",
   },
   {
     title: "Planning",
-    body: "You get a written scope, milestones, a fixed quote or estimate, and a recommended stack — in plain language, with no surprises hidden in the fine print.",
+    body: "You get a written proposal with scope, milestones, a fixed quote and a recommended stack. Once you approve it, we sign a simple contract — all online, in plain language, with no surprises in the fine print.",
     duration: "2–5 days",
   },
   {
@@ -96,7 +96,7 @@ export const reasons = [
   {
     icon: "MessageCircle",
     title: "You talk to the developer",
-    body: "No account managers or handoffs. The person on the call is the person writing your code.",
+    body: "No account managers or handoffs. The person replying to your messages is the person writing your code.",
   },
   {
     icon: "UserCheck",
@@ -244,12 +244,16 @@ export const pricing = [
 
 export const faqs = [
   {
+    q: "Do we need to get on a call?",
+    a: "No. I work entirely over messages. Sign in to the chat on this site (or use the contact form, email or WhatsApp) and we'll work out scope, pricing and the contract in writing. You get everything documented, can reply whenever suits you, and never have to find a time slot.",
+  },
+  {
     q: "How long does development take?",
-    a: "It depends on scope. A landing page usually takes 1–2 weeks, a business website 2–4 weeks, and a web or mobile app anywhere from 6 to 14 weeks for a first version. After our discovery call I'll give you a written timeline with weekly milestones, so you always know where things stand.",
+    a: "It depends on scope. A landing page usually takes 1–2 weeks, a business website 2–4 weeks, and a web or mobile app anywhere from 6 to 14 weeks for a first version. Once we've agreed the scope over chat, I'll give you a written timeline with weekly milestones, so you always know where things stand.",
   },
   {
     q: "Do you work internationally?",
-    a: "Yes. I work with clients across time zones and keep a few hours of overlap for calls. Most communication happens asynchronously through written updates, a shared task board and a staging link, so the time difference rarely slows anything down.",
+    a: "Yes. Everything happens asynchronously and in writing — on-site chat, a shared task board and a live staging link — so time zones rarely slow anything down.",
   },
   {
     q: "Can you maintain existing projects?",

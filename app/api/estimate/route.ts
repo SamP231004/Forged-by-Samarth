@@ -39,7 +39,7 @@ export async function POST(req: Request) {
       subject: "Your project estimate",
       html: layout(
         "Your project estimate",
-        `<p style="font-size:15px;line-height:1.6">Here's the ballpark you generated on my site. It's a rough range to help you plan — reply to this email or <a href="${site.calendly}">book a call</a> and I'll give you a precise, written quote.</p>
+        `<p style="font-size:15px;line-height:1.6">Here's the ballpark you generated on my site. It's a rough range to help you plan — reply to this email or <a href="${site.url}/chat">message me on my site</a> and I'll give you a precise, written quote — no call needed.</p>
         <table role="presentation" width="100%" style="margin-top:16px">${details}</table>
         ${result.budgetNote ? `<p style="font-size:14px;line-height:1.6;background:#fef3c7;border-radius:10px;padding:12px">${result.budgetNote}</p>` : ""}
         <p style="font-size:15px;line-height:1.6;margin-top:24px">— Samarth</p>`,

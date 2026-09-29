@@ -43,8 +43,8 @@ export function Hero() {
           style={{ animationDelay: "0.45s" }}
         >
           I&apos;m Samarth, an independent full stack developer. I help startups, founders and growing businesses
-          design, build and launch web apps, mobile apps and APIs — and you work directly with me, from the first call
-          to launch day and beyond.
+          design, build and launch web apps, mobile apps and APIs — and you work directly with me, from the first
+          message to launch day and beyond.
         </p>
 
         <div

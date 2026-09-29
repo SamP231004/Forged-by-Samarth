@@ -64,7 +64,7 @@ export async function POST(req: Request) {
       subject: `Thanks for reaching out, ${data.name.split(" ")[0]}`,
       html: layout(
         `Thanks, ${data.name.split(" ")[0]} — I've got your message`,
-        `<p style="font-size:15px;line-height:1.6">I'll read it personally and reply within one working day, usually sooner. If it's easier, you can also <a href="${site.calendly}">book a call</a> straight away.</p>
+        `<p style="font-size:15px;line-height:1.6">I'll read it personally and reply within one working day, usually sooner. If you'd like to keep the conversation going in real time, <a href="${site.url}/chat">sign in to chat on my site</a> with this email address.</p>
         <p style="font-size:15px;line-height:1.6">Talk soon,<br/>${escapeHtml(site.name)}</p>`,
       ),
     }).catch((e) => console.error("[contact] confirmation failed", e));

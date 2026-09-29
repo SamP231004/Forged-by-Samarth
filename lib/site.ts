@@ -8,13 +8,12 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://samarthpatel.dev", // TODO: your domain
   title: "Samarth Patel — Full Stack Developer for Startups & Businesses",
   description:
-    "I'm Samarth Patel, an independent full stack developer. I design, build and ship production-ready web apps, mobile apps and APIs for founders and growing businesses — and you work directly with me from first call to launch.",
+    "I'm Samarth Patel, an independent full stack developer. I design, build and ship production-ready web apps, mobile apps and APIs for founders and growing businesses — and you work directly with me, over messages, from the first hello to launch.",
   location: "India · Working with clients worldwide", // TODO
   timezone: "IST (UTC+5:30)",
   email: "hello@samarthpatel.dev", // TODO
   whatsapp: "910000000000", // TODO: country code + number, digits only
   telegram: "samarthpatel", // TODO: Telegram username
-  calendly: "https://cal.com/samarthpatel/intro", // TODO: booking link
   github: "https://github.com/SamP231004",
   linkedin: "https://www.linkedin.com/in/samp231004/",
   portfolio: "https://samp231004.github.io/Portfolio/",

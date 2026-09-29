@@ -19,7 +19,7 @@ const columns = [
     links: [
       { label: "Contact", href: "/#contact" },
       { label: "Estimate a project", href: "/#estimate" },
-      { label: "Book a call", href: site.calendly },
+      { label: "Chat with me", href: "/chat" },
       { label: "Email", href: links.email() },
     ],
   },

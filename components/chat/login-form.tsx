@@ -1,8 +1,10 @@
 "use client";
 
 import { ArrowRight, CheckCircle2, Loader2, Mail } from "lucide-react";
+import type { Provider } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { GithubIcon, GoogleIcon } from "@/components/ui/brand-icons";
 import { Button } from "@/components/ui/button";
 import { FieldError, Input, Label } from "@/components/ui/input";
 import { createClient } from "@/lib/supabase/client";
@@ -14,7 +16,22 @@ export function LoginForm({ next, linkError }: { next: string; linkError?: boole
   const [code, setCode] = useState("");
   const [sentTo, setSentTo] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  const [error, setError] = useState(linkError ? "That sign-in link has expired or was opened in another browser. Request a new one below." : "");
+  const [oauthBusy, setOauthBusy] = useState<Provider | null>(null);
+  const [error, setError] = useState(linkError ? "That sign-in didn't complete. Please try again." : "");
+
+  const signInWith = async (provider: Provider) => {
+    setOauthBusy(provider);
+    setError("");
+    const { error } = await createClient().auth.signInWithOAuth({
+      provider,
+      options: { redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}` },
+    });
+    // On success the browser is already navigating to the provider.
+    if (error) {
+      setOauthBusy(null);
+      setError(error.message);
+    }
+  };
 
   const sendLink = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,6 +112,21 @@ export function LoginForm({ next, linkError }: { next: string; linkError?: boole
 
   return (
     <form onSubmit={sendLink} className="mt-8 space-y-4 rounded-3xl border border-border bg-card/70 p-6 backdrop-blur-xl">
+      <div className="grid gap-2 sm:grid-cols-2">
+        {(
+          [
+            ["google", "Google", GoogleIcon],
+            ["github", "GitHub", GithubIcon],
+          ] as const
+        ).map(([provider, label, Icon]) => (
+          <Button key={provider} type="button" variant="outline" disabled={!!oauthBusy} onClick={() => signInWith(provider)}>
+            {oauthBusy === provider ? <Loader2 className="animate-spin" /> : <Icon />} Continue with {label}
+          </Button>
+        ))}
+      </div>
+      <div className="flex items-center gap-3 text-xs text-muted-foreground" aria-hidden>
+        <span className="h-px flex-1 bg-border" /> or use your email <span className="h-px flex-1 bg-border" />
+      </div>
       <div>
         <Label htmlFor="login-name">
           Name <span className="font-normal text-muted-foreground">(first time only)</span>

@@ -1,4 +1,4 @@
-import { siGithub, siTelegram, siWhatsapp } from "simple-icons";
+import { siGithub, siGoogle, siTelegram, siWhatsapp } from "simple-icons";
 
 type Props = { className?: string };
 
@@ -12,6 +12,7 @@ const make = (path: string) =>
   };
 
 export const GithubIcon = make(siGithub.path);
+export const GoogleIcon = make(siGoogle.path);
 export const WhatsappIcon = make(siWhatsapp.path);
 export const TelegramIcon = make(siTelegram.path);
 export const LinkedinIcon = make(

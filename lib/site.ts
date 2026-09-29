@@ -5,7 +5,7 @@
 export const site = {
   name: "Samarth Patel",
   role: "Full Stack Developer",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://samarthpatel.dev", // TODO: your domain
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://forged-by-samarth.vercel.app").replace(/\/+$/, ""),
   title: "Samarth Patel — Full Stack Developer for Startups & Businesses",
   description:
     "I'm Samarth Patel, an independent full stack developer. I design, build and ship production-ready web apps, mobile apps and APIs for founders and growing businesses — and you work directly with me, over messages, from the first hello to launch.",

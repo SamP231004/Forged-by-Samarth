@@ -10,7 +10,7 @@ import { TelegramIcon, WhatsappIcon } from "@/components/ui/brand-icons";
 const channels = [
   {
     label: "Chat on this site",
-    hint: "Sign in with email · history saved",
+    hint: "Google, GitHub or email · history saved",
     href: "/chat",
     Icon: MessagesSquare,
     tint: "bg-foreground/10 text-foreground",

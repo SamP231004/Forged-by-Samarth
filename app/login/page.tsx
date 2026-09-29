@@ -39,7 +39,7 @@ export default async function LoginPage({ searchParams }: Props) {
           Chat with me, <Serif>no calls</Serif>.
         </h1>
         <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">
-          Sign in with your email to start a private conversation. Your messages and files are saved, so you can pick
+          Sign in with Google, GitHub or your email to start a private conversation. Your messages and files are saved, so you can pick
           up where we left off on any device.
         </p>
         <LoginForm next={next} linkError={error === "link"} />

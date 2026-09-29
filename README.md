@@ -40,15 +40,17 @@ Everything editable lives in `lib/`:
 
 ## On-site chat (Supabase)
 
-Clients sign in with a magic link or 6-digit email code and get a private, persistent thread with you at `/chat`. You reply from `/inbox`. Messages are stored in Postgres, attachments in a private Storage bucket, and both are locked down with row level security. New messages arrive live (Supabase Realtime), and the other side gets an email via Resend if they haven't read the message (at most once every 10 minutes).
+Clients sign in with Google, GitHub, or a magic link / 6-digit email code and get a private, persistent thread with you at `/chat`. You reply from `/inbox`. Messages are stored in Postgres, attachments in a private Storage bucket, and both are locked down with row level security. New messages arrive live (Supabase Realtime), and the other side gets an email via Resend if they haven't read the message (at most once every 10 minutes).
 
 Without the Supabase variables the site still builds; the chat pages show a "coming soon" notice.
 
 **Setup**
 
 1. Create a Supabase project and add the two `NEXT_PUBLIC_SUPABASE_*` variables.
-2. Run [`supabase/migrations/20260929000000_chat.sql`](supabase/migrations/20260929000000_chat.sql) in the SQL editor. It creates the tables, policies, realtime publication and the `chat-attachments` bucket.
-3. **Authentication → URL Configuration:** set the Site URL to your domain and add `https://yourdomain.com/auth/callback` and `http://localhost:3000/auth/callback` to the redirect URLs.
+2. Run the files in [`supabase/migrations/`](supabase/migrations/) in order in the SQL editor. They create the tables, policies, realtime publication and the `chat-attachments` bucket.
+3. **Authentication → URL Configuration:** set the Site URL to `https://forged-by-samarth.vercel.app` and add `https://forged-by-samarth.vercel.app/auth/callback` and `http://localhost:3000/auth/callback` to the redirect URLs.
+   - **Google:** in Google Cloud Console create an OAuth client (type *Web application*) with the authorised redirect URI `https://<project-ref>.supabase.co/auth/v1/callback`, then paste the client ID and secret into **Authentication → Sign In / Providers → Google**.
+   - **GitHub:** at github.com → Settings → Developer settings → OAuth Apps, create an app with the homepage `https://forged-by-samarth.vercel.app` and callback URL `https://<project-ref>.supabase.co/auth/v1/callback`, then paste its client ID and a client secret into **Authentication → Sign In / Providers → GitHub**.
 4. **Authentication → Emails → Magic Link template:** add `{{ .Token }}` so people who open the email on another device can type the code instead.
 5. **Authentication → SMTP:** plug in Resend's SMTP details. Supabase's built-in mailer is heavily rate limited.
 6. Sign in once at `/login` with your own email, then make yourself the admin:

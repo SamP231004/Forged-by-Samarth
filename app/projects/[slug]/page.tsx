@@ -78,7 +78,14 @@ export default async function ProjectPage({ params }: Params) {
         </header>
 
         <Reveal className="mt-14">
-          <ProjectVisual project={project} className="aspect-[16/9] sm:aspect-[21/9]" />
+          <ProjectVisual
+            project={project}
+            className={
+              project.screenshot?.frame === "phone"
+                ? "mx-auto aspect-[4/5] max-w-[720px] sm:aspect-[4/3]" // never wider than the source
+                : "aspect-[16/9] sm:aspect-[21/9]"
+            }
+          />
         </Reveal>
 
         <div className="mt-16 grid gap-12 lg:grid-cols-[1fr_18rem]">

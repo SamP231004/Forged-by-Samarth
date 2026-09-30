@@ -5,7 +5,7 @@ import { Mail, MessageCircle, MessagesSquare, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { links, site } from "@/lib/site";
-import { TelegramIcon, WhatsappIcon } from "@/components/ui/brand-icons";
+import { WhatsappIcon } from "@/components/ui/brand-icons";
 
 const channels = [
   {
@@ -17,7 +17,7 @@ const channels = [
   },
   {
     label: "WhatsApp",
-    hint: "Quick questions",
+    hint: site.phone,
     href: links.whatsapp(),
     Icon: WhatsappIcon,
     tint: "bg-[#25D366]/15 text-[#25D366]",
@@ -28,13 +28,6 @@ const channels = [
     href: links.email(),
     Icon: Mail,
     tint: "bg-accent/15 text-accent",
-  },
-  {
-    label: "Telegram",
-    hint: `@${site.telegram}`,
-    href: links.telegram,
-    Icon: TelegramIcon,
-    tint: "bg-[#26A5E4]/15 text-[#26A5E4]",
   },
 ];
 

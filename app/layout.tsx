@@ -27,8 +27,8 @@ export const metadata: Metadata = {
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   keywords: [
-    "freelance full stack developer",
-    "hire full stack developer",
+    "freelance software developer",
+    "hire software developer",
     "Next.js developer",
     "React developer",
     "Spring Boot developer",

@@ -31,11 +31,17 @@ export function Projects() {
               <article className="group grid overflow-hidden rounded-3xl border border-border bg-card/40 transition-colors hover:border-foreground/15 lg:grid-cols-2">
                 <Link
                   href={`/projects/${p.slug}`}
-                  className={cn("block p-3", i % 2 === 1 && "lg:order-2")}
+                  className={cn("block", !p.screenshot && "p-3", i % 2 === 1 && "lg:order-2")}
                   tabIndex={-1}
                   aria-hidden
                 >
-                  <ProjectVisual project={p} className="aspect-[4/3] w-full lg:aspect-auto lg:h-full lg:min-h-[28rem]" />
+                  <ProjectVisual
+                    project={p}
+                    className={cn(
+                      "aspect-[4/3] w-full lg:aspect-auto lg:h-full lg:min-h-[28rem]",
+                      p.screenshot && "rounded-none border-0",
+                    )}
+                  />
                 </Link>
 
                 <div className="flex flex-col p-6 sm:p-10">

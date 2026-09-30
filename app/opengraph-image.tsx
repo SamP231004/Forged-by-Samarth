@@ -47,7 +47,7 @@ export default function OpengraphImage() {
             Turning your ideas into production-ready software.
           </div>
           <div style={{ marginTop: 28, fontSize: 28, color: "#a1a1aa" }}>
-            Independent full stack developer · Web · Mobile · APIs · Cloud
+            Independent software developer · Web · Mobile · APIs · Cloud
           </div>
         </div>
       </div>

@@ -5,6 +5,9 @@ import { testimonials } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 export function Testimonials() {
+  const quotes = testimonials.filter((t) => t.approved);
+  if (quotes.length === 0) return null;
+
   return (
     <Section id="testimonials" className="border-t border-border bg-muted/20">
       <div className="container-page">
@@ -19,8 +22,8 @@ export function Testimonials() {
           description="Feedback from people I've worked with. Every quote here is shared with permission."
         />
 
-        <Stagger className="mt-16 grid gap-4 md:grid-cols-3">
-          {testimonials.map((t, i) => (
+        <Stagger className={cn("mt-16 grid gap-4", quotes.length === 1 ? "mx-auto max-w-2xl" : "md:grid-cols-3")}>
+          {quotes.map((t, i) => (
             <StaggerItem
               key={i}
               className={cn(
@@ -43,11 +46,6 @@ export function Testimonials() {
                   <span className="block text-sm font-medium">{t.name}</span>
                   <span className="block text-xs text-muted-foreground">{t.role}</span>
                 </span>
-                {t.placeholder && (
-                  <span className="rounded-full border border-dashed border-border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
-                    Placeholder
-                  </span>
-                )}
               </div>
             </StaggerItem>
           ))}

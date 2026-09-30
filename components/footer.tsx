@@ -21,6 +21,7 @@ const columns = [
       { label: "Estimate a project", href: "/#estimate" },
       { label: "Chat with me", href: "/chat" },
       { label: "Email", href: links.email() },
+      { label: "WhatsApp", href: links.whatsapp() },
     ],
   },
   {
@@ -46,7 +47,7 @@ export function Footer() {
             {site.name}
           </Link>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-            Independent full stack developer. I design, build and look after software for founders and growing
+            Independent software developer. I design, build and look after software for founders and growing
             businesses.
           </p>
           <div className="mt-6 flex gap-2">

@@ -85,7 +85,7 @@ export function About() {
 
           <Reveal delay={0.1} className="mt-8 space-y-5 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
             <p>
-              Hi, I&apos;m <span className="text-foreground">Samarth Patel</span> — a full stack developer who works
+              Hi, I&apos;m <span className="text-foreground">Samarth Patel</span> — a software developer who works
               independently with startups, founders and small businesses. I take ideas from a rough sketch to a
               reliable product in the hands of real users.
             </p>

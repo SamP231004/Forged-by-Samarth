@@ -175,32 +175,20 @@ export const techStack: { group: string; items: TechItem[] }[] = [
 ];
 
 /**
- * Placeholder testimonials. Replace with real, attributed quotes from clients
- * (with their permission) before publishing — never invent reviews.
+ * Client testimonials. Only real, attributed quotes the client has approved —
+ * a testimonial stays hidden until `approved` is true. Never invent reviews.
  */
-export const testimonials = [
+export const testimonials: { quote: string; name: string; role: string; approved: boolean }[] = [
   {
+    // DRAFT: written for David to review and edit. Send it to him and publish
+    // his approved wording (set approved: true) — not this draft as-is.
     quote:
-      "Add a short quote from a client here — ideally about what changed for their business after the project, not just that it went well.",
-    name: "Client Name",
-    role: "Founder, Company",
-    placeholder: true,
+      "Our maternal programme was running on paper registers and spreadsheets. Within about two weeks Samarth gave us a dashboard that flags high-risk readings and puts them in a queue someone owns. When we needed a mobile app, we didn't want to start over with someone new, so we went back to him. He built it on the same backend, with offline recording for the sites where the signal keeps dropping. Reliable, quick, and honest about what wasn't finished yet.",
+    name: "David Agunede",
+    role: "Client · Maternal care dashboard & mobile app",
+    approved: false,
   },
-  {
-    quote:
-      "A second testimonial slot. Quotes that mention communication, speed or reliability work especially well for a solo developer.",
-    name: "Client Name",
-    role: "Product Lead, Company",
-    placeholder: true,
-  },
-  {
-    quote:
-      "A third testimonial slot. If you have a measurable result — time saved, revenue, sign-ups — this is the place for it.",
-    name: "Client Name",
-    role: "Operations Manager, Company",
-    placeholder: true,
-  },
-] as const;
+];
 
 /** Update "from" amounts to your own rates. */
 export const pricing = [

@@ -12,7 +12,7 @@ export function personSchema() {
         jobTitle: site.role,
         url: site.url,
         email: `mailto:${site.email}`,
-        sameAs: [site.github, site.linkedin],
+        sameAs: [site.github, site.linkedin, site.portfolio],
         knowsAbout: [
           "Full Stack Development",
           "React",

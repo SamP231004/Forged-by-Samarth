@@ -1,8 +1,8 @@
 # Samarth Patel — Freelance Developer Site
 
-Personal site for an independent full stack developer. Built with Next.js 15 (App Router), TypeScript, Tailwind CSS v4, shadcn/ui-style components, Framer Motion, React Hook Form + Zod, Resend and Supabase.
+Personal site for an independent software developer. Built with Next.js 15 (App Router), TypeScript, Tailwind CSS v4, shadcn/ui-style components, Framer Motion, React Hook Form + Zod, Resend and Supabase.
 
-Everything is message-first — there are no calls. Clients reach out through the on-site chat (sign in with email), the contact form, email, WhatsApp or Telegram, and scope, pricing and the contract are agreed in writing.
+Everything is message-first — there are no calls. Clients reach out through the on-site chat (sign in with email), the contact form, email or WhatsApp, and scope, pricing and the contract are agreed in writing.
 
 ## Getting started
 
@@ -20,8 +20,8 @@ Everything editable lives in `lib/`:
 
 | File | What to change |
 | --- | --- |
-| `lib/site.ts` | Email, WhatsApp number, Telegram, domain, stats (`X+` placeholders) |
-| `lib/content.ts` | Services, process, reasons, tech stack, **testimonials (placeholders)**, pricing "from" amounts, FAQ |
+| `lib/site.ts` | Email, phone/WhatsApp number, domain, stats (`X+` placeholders) |
+| `lib/content.ts` | Services, process, reasons, tech stack, testimonials (shown once `approved`), pricing "from" amounts, FAQ |
 | `lib/projects.ts` | Case studies: timelines, outcomes, live/GitHub links (marked `TODO`) |
 | `lib/estimator.ts` | Base prices, add-on costs and timeline multipliers for the estimator |
 

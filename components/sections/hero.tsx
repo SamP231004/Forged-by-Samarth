@@ -7,7 +7,7 @@ import { DashboardMockup } from "@/components/sections/dashboard-mockup";
 import { HeroBackdrop } from "@/components/sections/hero-backdrop";
 import { site } from "@/lib/site";
 
-const badges = ["Full Stack Developer", "React", "Spring Boot", "AWS", "React Native"];
+const badges = ["Software Developer", "React", "Spring Boot", "AWS", "React Native"];
 
 export function Hero() {
   return (
@@ -42,7 +42,7 @@ export function Hero() {
           className="animate-fade-up mt-7 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
           style={{ animationDelay: "0.45s" }}
         >
-          I&apos;m Samarth, an independent full stack developer. I help startups, founders and growing businesses
+          I&apos;m Samarth, an independent software developer. I help startups, founders and growing businesses
           design, build and launch web apps, mobile apps and APIs — and you work directly with me, from the first
           message to launch day and beyond.
         </p>

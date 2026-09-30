@@ -8,7 +8,15 @@ export type Project = {
   title: string;
   tagline: string;
   category: string;
-  visual: "health" | "chat" | "portfolio" | "future";
+  visual: "health" | "future";
+  // real screenshot shown on the cover instead of the drawn visual
+  screenshot?: {
+    src: string;
+    width: number;
+    height: number;
+    frame: "browser" | "phone";
+    alt: string;
+  };
   accent: string; // tailwind gradient stops used on the cover
   problem: string;
   solution: string;
@@ -24,79 +32,90 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "maternal-health-platform",
-    title: "Maternal Health Platform",
-    tagline: "Helping expecting mothers and care teams stay connected between visits.",
-    category: "Healthcare · Web & Mobile",
+    slug: "maternal-care-dashboard",
+    title: "Maternal Care Dashboard",
+    tagline:
+      "A backend and web dashboard that lets maternal and newborn care teams record patient data and act on automatic risk alerts.",
+    category: "Healthcare · Backend & Dashboard",
     visual: "health",
+    screenshot: {
+      src: "/projects/maternal-dashboard.png",
+      width: 1917,
+      height: 932,
+      frame: "browser",
+      alt: "Patient list in the care dashboard with risk levels and an at-a-glance panel. Patient details are blurred.",
+    },
     accent: "from-rose-500/30 via-fuchsia-500/20 to-transparent",
+    // TODO: confirm this matches how the client described the problem.
     problem:
-      "Expecting mothers often go weeks between appointments with no easy way to track symptoms, remember check-ups or reach their care team. Important warning signs can be missed, and clinicians lack a clear picture of how patients are doing at home.",
+      "Mothers' and newborns' health information was spread across paper records, devices and different facilities, so no one had a complete picture of a patient. Without a clear way to rank risk and escalate, early warning signs could be missed or acted on too late.",
     solution:
-      "I designed and built a platform where mothers log symptoms, vitals and questions from their phone, receive reminders for appointments and tests, and get week-by-week guidance. Care teams see a prioritised dashboard that highlights patients who may need attention.",
-    technologies: ["React", "React Native", "Spring Boot", "PostgreSQL", "AWS"],
-    timeline: "X weeks", // TODO
-    role: "Design, frontend, backend, deployment",
-    outcome:
-      "Replace this with the real outcome — for example how many users onboarded, what clinicians said, or which manual process it replaced.",
-    highlights: [
-      "Role-based access for patients and clinicians",
-      "Symptom tracking with risk flags",
-      "Automated appointment and medication reminders",
-      "Privacy-first data handling",
+      "I built the backend and a web dashboard. Clinic staff use it to register mothers and newborns, record vitals, symptoms and notes, and work through a queue of risk alerts that a rules engine raises automatically. Supervisors and administrators get analytics, facility and staff management, and PDF export of a patient's timeline, and each facility can only see its own patients.",
+    technologies: [
+      "TypeScript",
+      "Node.js & Express",
+      "Supabase (PostgreSQL, Auth, Storage)",
+      "React & Vite",
+      "Tailwind CSS",
+      "Vercel",
+      "GitHub Actions",
     ],
-    liveUrl: "#", // TODO
-    githubUrl: "https://github.com/SamP231004", // TODO: link the specific repo
+    timeline: "Jan 2026 · 2 weeks",
+    role: "Backend architecture, database design, dashboard, CI and deployment",
+    // TODO: add real results — clinics or staff using it, patients enrolled, alerts handled, or a client quote.
+    outcome:
+      "I built the backend to last beyond the first contract, and it did. When the client came back in September for a mobile app, the app ran on this same backend. I extended it with new modules and database migrations without deleting or rewriting any of the original code.",
+    highlights: [
+      "Rules engine flags high-risk mothers and newborns automatically",
+      "Role-based access with each facility's data kept separate",
+      "Analytics, alert queue and PDF export of patient timelines",
+      "Public clinical rules page generated from the engine's own rule files",
+      "Records still save if risk scoring fails; a background job retries it",
+      "REST API documented with OpenAPI",
+    ],
   },
   {
-    slug: "ai-chat-platform",
-    title: "AI Chat Platform",
-    tagline: "A conversational assistant that answers from a company's own knowledge.",
-    category: "AI · SaaS",
-    visual: "chat",
-    accent: "from-violet-500/30 via-indigo-500/20 to-transparent",
+    slug: "maternal-care-app",
+    title: "Maternal Care Mobile App",
+    tagline:
+      "A mobile app for clinic staff and patients. The same client hired me to build it on the backend I'd made for them earlier in the year.",
+    category: "Healthcare · Mobile",
+    visual: "health",
+    screenshot: {
+      src: "/projects/maternal-app.png",
+      width: 720,
+      height: 1600,
+      frame: "phone",
+      alt: "Patients screen in the mobile app showing an at-a-glance summary and risk filters. Patient details are blurred.",
+    },
+    accent: "from-pink-500/30 via-rose-400/20 to-transparent",
+    // TODO: confirm this matches how the client described the problem.
     problem:
-      "Support and internal teams were answering the same questions repeatedly, with answers scattered across documents, wikis and old tickets. Generic chatbots gave confident but wrong answers.",
+      "The dashboard kept care teams at a desk, but much of their work happens elsewhere, and many of the clinics they serve have unreliable internet. Once mothers went home, the care team also had no readings from them until the next visit.",
     solution:
-      "I built a chat platform that searches a team's own documents and answers with citations, streams responses in real time, and hands off to a human when it isn't sure. Admins can upload sources and review conversations to improve answers.",
-    technologies: ["Next.js", "TypeScript", "Node.js", "PostgreSQL", "Vercel"],
-    timeline: "X weeks", // TODO
-    role: "Product design, full stack, AI integration",
-    outcome:
-      "Replace this with the real outcome — for example share of questions answered without escalation, or response time before vs. after.",
-    highlights: [
-      "Retrieval over uploaded documents with source citations",
-      "Streaming responses and conversation history",
-      "Admin console for sources and analytics",
-      "Usage limits and team workspaces",
+      "I built a React Native app on the same backend. Staff can do their clinical work on a phone and keep recording when there's no signal; entries are stored encrypted on the device and sync when the connection returns. Patients get their own login to send home blood pressure readings from a Bluetooth monitor and record voice diaries. I also extended the backend with medication safety checks, urine, scan and growth tracking, and patient self-service, which the dashboard and the app both use.",
+    technologies: [
+      "React Native & Expo",
+      "TypeScript",
+      "SQLCipher (encrypted SQLite)",
+      "Bluetooth Low Energy",
+      "Node.js & Express",
+      "Supabase",
+      "GitHub Actions",
     ],
-    liveUrl: "#", // TODO
-    githubUrl: "https://github.com/SamP231004", // TODO: link the specific repo
-  },
-  {
-    slug: "developer-portfolio",
-    title: "Developer Portfolio",
-    tagline: "This site — built to be fast, accessible and easy to keep up to date.",
-    category: "Web · Personal",
-    visual: "portfolio",
-    accent: "from-sky-500/30 via-cyan-500/20 to-transparent",
-    problem:
-      "Freelance clients decide quickly whether they trust a developer. I needed a site that shows how I work, answers common questions up front and makes it effortless to start a conversation.",
-    solution:
-      "A performance-focused Next.js site with server components, subtle motion, a built-in project estimator and a contact flow that delivers enquiries straight to my inbox.",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Resend"],
-    timeline: "X weeks", // TODO
-    role: "Everything",
+    timeline: "Sept 2026 – present",
+    role: "Mobile app, backend extensions, database migrations, release builds",
+    // TODO: update once the app is tested on real devices and released.
     outcome:
-      "Replace this with real numbers once live — Lighthouse scores, enquiry volume or conversion rate.",
+      "The client came back for this project after the dashboard. The app runs on the backend I built in January: I added new modules and migrations without deleting or rewriting any original code. The app is still in development and hasn't been released yet.",
     highlights: [
-      "Interactive project estimator",
-      "Dark and light themes",
-      "Structured data and full SEO setup",
-      "Accessible, keyboard-friendly UI",
+      "Encrypted offline recording that syncs when back online",
+      "Home blood pressure readings from Bluetooth Omron monitors",
+      "Patient login with home readings and voice diaries",
+      "Medication safety checks against clinical data",
+      "Works on locked-down kiosk devices",
+      "Dashboard and app available in 10 languages, including Arabic",
     ],
-    liveUrl: "/",
-    githubUrl: "https://github.com/SamP231004", // TODO: link the specific repo
   },
   {
     slug: "your-project",

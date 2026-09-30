@@ -178,36 +178,52 @@ export const techStack: { group: string; items: TechItem[] }[] = [
  * Client testimonials. Only real, attributed quotes the client has approved —
  * a testimonial stays hidden until `approved` is true. Never invent reviews.
  */
-export const testimonials: { quote: string; name: string; role: string; approved: boolean }[] = [
+export const testimonials: {
+  quote: string;
+  name: string;
+  role: string;
+  project?: string;
+  approved: boolean;
+}[] = [
+  // David approved this wording, with his name, on 30 Sep 2026. It is split
+  // across his two projects word for word — don't reword it without asking him.
   {
-    // Approved by David, with his name, on 30 Sep 2026.
     quote:
-      "Our maternal programme was running on paper registers and spreadsheets. Within about two weeks Samarth gave us a dashboard that flags high-risk readings and puts them in a queue someone owns. When we needed a mobile app, we didn't want to start over with someone new, so we went back to him. He built it on the same backend, with offline recording for the sites where the signal keeps dropping. Reliable, quick, and honest about what wasn't finished yet.",
+      "Our maternal programme was running on paper registers and spreadsheets. Within about two weeks Samarth gave us a dashboard that flags high-risk readings and puts them in a queue someone owns.",
     name: "David Agunede",
     role: "Programme Founder",
+    project: "Maternal Care Dashboard · Jan 2026",
+    approved: true,
+  },
+  {
+    quote:
+      "When we needed a mobile app, we didn't want to start over with someone new, so we went back to him. He built it on the same backend, with offline recording for the sites where the signal keeps dropping. Reliable, quick, and honest about what wasn't finished yet.",
+    name: "David Agunede",
+    role: "Programme Founder",
+    project: "Maternal Care Mobile App · Sept 2026",
     approved: true,
   },
 ];
 
-/** Update "from" amounts to your own rates. */
+/** "From" amounts line up with the low end of the estimator in lib/estimator.ts. */
 export const pricing = [
   {
     name: "Landing Page",
-    from: "$X00",
+    from: "$200",
     blurb: "A single, high-converting page for a launch, product or campaign.",
     includes: ["Custom design", "Mobile-first build", "SEO & analytics setup", "Contact form"],
     timeline: "1–2 weeks",
   },
   {
     name: "Business Website",
-    from: "$X,X00",
+    from: "$500",
     blurb: "A complete multi-page site you can edit yourself.",
     includes: ["Up to ~8 pages", "CMS for easy edits", "Performance & SEO", "Launch support"],
     timeline: "2–4 weeks",
   },
   {
     name: "Web Application",
-    from: "$X,X00",
+    from: "$1,250",
     blurb: "SaaS products, portals and internal tools with real logic behind them.",
     includes: ["Auth & user roles", "Database & API", "Admin dashboard", "Cloud deployment"],
     timeline: "6–12 weeks",
@@ -215,7 +231,7 @@ export const pricing = [
   },
   {
     name: "Mobile App",
-    from: "$X,X00",
+    from: "$1,750",
     blurb: "Cross-platform iOS and Android apps built with React Native.",
     includes: ["iOS & Android", "Push notifications", "Backend & API", "Store submission"],
     timeline: "8–14 weeks",

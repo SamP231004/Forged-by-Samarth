@@ -114,12 +114,6 @@ export function About() {
               </StaggerItem>
             ))}
           </Stagger>
-
-          <Reveal delay={0.15}>
-            <blockquote className="mt-10 border-l-2 border-accent/60 pl-5 font-serif text-xl italic leading-snug text-foreground/90 sm:text-2xl">
-              &ldquo;I treat every project as if my name is on it — because it is.&rdquo;
-            </blockquote>
-          </Reveal>
         </div>
       </div>
     </Section>

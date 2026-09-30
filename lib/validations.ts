@@ -14,11 +14,11 @@ export const ACCEPTED_FILE_TYPES = [
 ];
 
 export const contactBudgets = [
-  "Under $2,000",
-  "$2,000 – $5,000",
-  "$5,000 – $10,000",
-  "$10,000 – $25,000",
-  "$25,000+",
+  "Under $500",
+  "$500 – $1,000",
+  "$1,000 – $2,500",
+  "$2,500 – $5,000",
+  "$5,000+",
   "Not sure yet",
 ] as const;
 

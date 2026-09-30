@@ -22,17 +22,24 @@ export function Testimonials() {
           description="Feedback from people I've worked with. Every quote here is shared with permission."
         />
 
-        <Stagger className={cn("mt-16 grid gap-4", quotes.length === 1 ? "mx-auto max-w-2xl" : "md:grid-cols-3")}>
+        <Stagger className={cn("mt-16 grid gap-4", quotes.length === 1 && "mx-auto max-w-2xl", quotes.length === 2 && "mx-auto max-w-5xl md:grid-cols-2", quotes.length > 2 && "md:grid-cols-3")}>
           {quotes.map((t, i) => (
             <StaggerItem
               key={i}
               className={cn(
                 "relative flex flex-col rounded-3xl border border-border bg-card p-7 shadow-[0_1px_0_0_var(--border)] transition-transform duration-300 hover:-translate-y-1",
-                i === 1 && "md:-translate-y-6 md:hover:-translate-y-7",
+                quotes.length > 2 && i === 1 && "md:-translate-y-6 md:hover:-translate-y-7",
               )}
             >
-              <Quote className="size-7 text-accent/60" aria-hidden />
-              <blockquote className="mt-5 flex-1 font-serif text-xl leading-snug text-foreground/90">
+              <div className="flex items-center justify-between gap-3">
+                <Quote className="size-7 text-accent/60" aria-hidden />
+                {t.project && (
+                  <span className="rounded-full border border-border px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+                    {t.project}
+                  </span>
+                )}
+              </div>
+              <blockquote className="mt-5 flex-1 text-pretty text-lg leading-relaxed tracking-[-0.01em] text-foreground/90 sm:text-xl">
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
               <div className="mt-8 flex items-center gap-3 border-t border-border pt-5">

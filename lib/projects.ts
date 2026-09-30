@@ -103,11 +103,11 @@ export const projects: Project[] = [
       "Supabase",
       "GitHub Actions",
     ],
-    timeline: "Sept 2026 – present",
+    timeline: "Sept 2026 · 2 weeks",
     role: "Mobile app, backend extensions, database migrations, release builds",
-    // TODO: update once the app is tested on real devices and released.
+    // Delivered, but not yet on the app stores — don't describe it as launched.
     outcome:
-      "The client came back for this project after the dashboard. The app runs on the backend I built in January: I added new modules and migrations without deleting or rewriting any original code. The app is still in development and hasn't been released yet.",
+      "The client came back for this project after the dashboard. The app runs on the backend I built in January: I added new modules and migrations without deleting or rewriting any original code. I delivered it in two weeks, the same pace as the dashboard, with signed Android builds produced automatically on every release.",
     highlights: [
       "Encrypted offline recording that syncs when back online",
       "Home blood pressure readings from Bluetooth Omron monitors",

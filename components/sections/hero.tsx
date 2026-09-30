@@ -39,7 +39,16 @@ export function Hero() {
         </h1>
 
         <p
-          className="animate-fade-up mt-7 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
+          className="animate-fade-up mt-7 max-w-2xl text-balance font-serif text-xl italic leading-snug text-foreground/90 sm:text-2xl md:text-[1.75rem]"
+          style={{ animationDelay: "0.35s" }}
+        >
+          <span className="text-accent">&ldquo;</span>I treat every project as if my name is on it —{" "}
+          <span className="text-gradient pr-[0.08em]">because it is.</span>
+          <span className="text-accent">&rdquo;</span>
+        </p>
+
+        <p
+          className="animate-fade-up mt-6 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
           style={{ animationDelay: "0.45s" }}
         >
           I&apos;m Samarth, an independent software developer. I help startups, founders and growing businesses

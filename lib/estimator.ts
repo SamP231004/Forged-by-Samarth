@@ -23,11 +23,11 @@ export const timelineOptions = [
 ] as const;
 
 export const budgetOptions = [
-  { id: "lt2k", label: "Under $2,000", max: 2000 },
-  { id: "2to5k", label: "$2,000 – $5,000", max: 5000 },
-  { id: "5to10k", label: "$5,000 – $10,000", max: 10000 },
-  { id: "10to25k", label: "$10,000 – $25,000", max: 25000 },
-  { id: "gt25k", label: "$25,000+", max: Infinity },
+  { id: "lt500", label: "Under $500", max: 500 },
+  { id: "500to1k", label: "$500 – $1,000", max: 1000 },
+  { id: "1to2.5k", label: "$1,000 – $2,500", max: 2500 },
+  { id: "2.5to5k", label: "$2,500 – $5,000", max: 5000 },
+  { id: "gt5k", label: "$5,000+", max: Infinity },
   { id: "unsure", label: "Not sure yet", max: Infinity },
 ] as const;
 
@@ -46,16 +46,16 @@ export type EstimateInput = {
 type Range = [number, number];
 
 const base: Record<ProjectTypeId, { price: Range; weeks: Range }> = {
-  website: { price: [800, 2500], weeks: [2, 4] },
-  webapp: { price: [4000, 9000], weeks: [6, 10] },
-  mobile: { price: [5000, 11000], weeks: [8, 12] },
-  dashboard: { price: [2500, 6000], weeks: [4, 7] },
+  website: { price: [200, 625], weeks: [2, 4] },
+  webapp: { price: [1250, 2500], weeks: [6, 10] },
+  mobile: { price: [1750, 3000], weeks: [8, 12] },
+  dashboard: { price: [625, 1500], weeks: [4, 7] },
 };
 
 const addOns: Record<FeatureId, { price: Range; weeks: Range }> = {
-  auth: { price: [500, 1200], weeks: [0.5, 1] },
-  payments: { price: [800, 1800], weeks: [1, 2] },
-  ai: { price: [1200, 3500], weeks: [1, 3] },
+  auth: { price: [125, 300], weeks: [0.5, 1] },
+  payments: { price: [200, 450], weeks: [1, 2] },
+  ai: { price: [300, 875], weeks: [1, 3] },
 };
 
 const pace: Record<TimelineId, { price: number; weeks: number }> = {
@@ -72,7 +72,7 @@ export type Estimate = {
   budgetNote?: string;
 };
 
-const roundPrice = (n: number) => Math.round(n / 100) * 100;
+const roundPrice = (n: number) => Math.round(n / 50) * 50;
 
 export function estimate(input: EstimateInput): Estimate {
   const b = base[input.projectType];

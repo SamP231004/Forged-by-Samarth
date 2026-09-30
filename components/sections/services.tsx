@@ -1,9 +1,11 @@
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { SpotlightCard } from "@/components/motion/spotlight-card";
 import { Stagger, StaggerItem } from "@/components/motion/reveal";
 import { Icon } from "@/components/ui/icon";
 import { Section, SectionHeading, Serif } from "@/components/ui/section";
 import { services } from "@/lib/content";
+import { servicePageFor } from "@/lib/service-pages";
 import { cn } from "@/lib/utils";
 
 export function Services() {
@@ -23,8 +25,9 @@ export function Services() {
         </div>
 
         <Stagger className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((s, i) => (
-            <StaggerItem key={s.title} className={cn([0, 4, 6, 7].includes(i) && "lg:col-span-2")}>
+          {services.map((s, i) => {
+            const page = servicePageFor(s.title);
+            const card = (
               <SpotlightCard className="group flex h-full flex-col p-6 hover:-translate-y-1">
                 <div className="flex items-start justify-between">
                   <span className="grid size-11 place-items-center rounded-2xl border border-border bg-background shadow-sm transition-colors group-hover:border-accent/40 group-hover:text-accent">
@@ -37,10 +40,22 @@ export function Services() {
                 <p className="mt-6 inline-flex items-center gap-1.5 border-t border-border pt-4 text-[13px] font-medium text-foreground/85">
                   <ArrowUpRight className="size-3.5 text-accent transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
                   {s.outcome}
+                  {page && <span className="ml-auto text-muted-foreground transition-colors group-hover:text-foreground">Learn more →</span>}
                 </p>
               </SpotlightCard>
-            </StaggerItem>
-          ))}
+            );
+            return (
+              <StaggerItem key={s.title} className={cn([0, 4, 6, 7].includes(i) && "lg:col-span-2")}>
+                {page ? (
+                  <Link href={`/services/${page.slug}`} className="block h-full rounded-3xl">
+                    {card}
+                  </Link>
+                ) : (
+                  card
+                )}
+              </StaggerItem>
+            );
+          })}
         </Stagger>
       </div>
     </Section>

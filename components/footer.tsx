@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { servicePages } from "@/lib/service-pages";
 import { links, site } from "@/lib/site";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/brand-icons";
 
 const columns = [
+  {
+    title: "Services",
+    links: servicePages.map((s) => ({ label: s.eyebrow, href: `/services/${s.slug}` })),
+  },
   {
     title: "Explore",
     links: [
@@ -38,7 +43,7 @@ export function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="relative overflow-hidden border-t border-border">
-      <div className="container-page grid gap-12 py-16 md:grid-cols-[1.4fr_repeat(3,1fr)]">
+      <div className="container-page grid gap-12 py-16 sm:grid-cols-2 md:grid-cols-[1.4fr_repeat(4,1fr)]">
         <div className="max-w-xs">
           <Link href="/" className="flex items-center gap-2.5 font-medium">
             <span className="grid size-7 place-items-center rounded-lg bg-foreground text-[11px] font-semibold text-background">

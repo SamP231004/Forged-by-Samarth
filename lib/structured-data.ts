@@ -1,4 +1,5 @@
-import { faqs, services } from "./content";
+import { faqs } from "./content";
+import { servicePages } from "./service-pages";
 import { site } from "./site";
 
 export function personSchema() {
@@ -13,7 +14,10 @@ export function personSchema() {
         url: site.url,
         email: `mailto:${site.email}`,
         sameAs: [site.github, site.linkedin, site.portfolio],
+        address: { "@type": "PostalAddress", addressCountry: "IN" },
         knowsAbout: [
+          "Web Development",
+          "Mobile App Development",
           "Full Stack Development",
           "React",
           "Next.js",
@@ -34,13 +38,20 @@ export function personSchema() {
         description: site.description,
         founder: { "@id": `${site.url}/#person` },
         areaServed: "Worldwide",
-        priceRange: "$$",
+        priceRange: "$200 – $5,000+",
+        address: { "@type": "PostalAddress", addressCountry: "IN" },
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: "Development services",
-          itemListElement: services.map((s) => ({
+          itemListElement: servicePages.map((s) => ({
             "@type": "Offer",
-            itemOffered: { "@type": "Service", name: s.title, description: s.body },
+            ...(s.priceFrom && { price: s.priceFrom, priceCurrency: "USD" }),
+            itemOffered: {
+              "@type": "Service",
+              name: s.eyebrow,
+              description: s.metaDescription,
+              url: `${site.url}/services/${s.slug}`,
+            },
           })),
         },
       },

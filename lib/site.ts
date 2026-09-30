@@ -6,9 +6,9 @@ export const site = {
   name: "Samarth Patel",
   role: "Software Developer",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://forged-by-samarth.vercel.app").replace(/\/+$/, ""),
-  title: "Samarth Patel — Software Developer for Startups & Businesses",
+  title: "Hire a Freelance Web & App Developer | Samarth Patel",
   description:
-    "I'm Samarth Patel, an independent software developer. I design, build and ship production-ready web apps, mobile apps and APIs for founders and growing businesses — and you work directly with me, over messages, from the first hello to launch.",
+    "Hire Samarth Patel, a freelance software developer, to build your website, web app, mobile app or MVP. Written quotes from $200, weekly progress, and you work directly with me.",
   location: "India · Working with clients worldwide", // TODO
   timezone: "IST (UTC+5:30)",
   email: "samp231004@gmail.com",

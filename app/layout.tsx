@@ -27,8 +27,16 @@ export const metadata: Metadata = {
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   keywords: [
+    "hire freelance developer",
     "freelance software developer",
     "hire software developer",
+    "freelance web developer",
+    "hire app developer",
+    "build an app",
+    "mobile app development",
+    "website development",
+    "MVP development for startups",
+    "freelance developer India",
     "Next.js developer",
     "React developer",
     "Spring Boot developer",
@@ -57,6 +65,8 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   },
   formatDetection: { telephone: false },
+  // Paste the token from Google Search Console → Settings → Ownership verification (HTML tag).
+  verification: { google: process.env.GOOGLE_SITE_VERIFICATION || undefined },
 };
 
 export const viewport: Viewport = {

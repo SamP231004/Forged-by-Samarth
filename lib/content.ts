@@ -180,13 +180,12 @@ export const techStack: { group: string; items: TechItem[] }[] = [
  */
 export const testimonials: { quote: string; name: string; role: string; approved: boolean }[] = [
   {
-    // DRAFT: written for David to review and edit. Send it to him and publish
-    // his approved wording (set approved: true) — not this draft as-is.
+    // Approved by David, with his name, on 30 Sep 2026.
     quote:
       "Our maternal programme was running on paper registers and spreadsheets. Within about two weeks Samarth gave us a dashboard that flags high-risk readings and puts them in a queue someone owns. When we needed a mobile app, we didn't want to start over with someone new, so we went back to him. He built it on the same backend, with offline recording for the sites where the signal keeps dropping. Reliable, quick, and honest about what wasn't finished yet.",
     name: "David Agunede",
-    role: "Client · Maternal care dashboard & mobile app",
-    approved: false,
+    role: "Programme Founder",
+    approved: true,
   },
 ];
 

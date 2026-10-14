@@ -1,83 +1,193 @@
-# Samarth Patel — Freelance Developer Site
+<div align="center">
 
-Personal site for an independent software developer. Built with Next.js 15 (App Router), TypeScript, Tailwind CSS v4, shadcn/ui-style components, Framer Motion, React Hook Form + Zod, Resend, MongoDB and Better Auth.
+# 🔨 Forged by Samarth
 
-Everything is message-first — there are no calls. Clients reach out through the on-site chat (sign in with email), the contact form, email or WhatsApp, and scope, pricing and the contract are agreed in writing.
+**Freelance web & mobile development: websites, web apps, mobile apps and MVPs, built by one developer you talk to directly.**
 
-## Getting started
+[🌐 Visit the site](https://forged-by-samarth.vercel.app) · [💬 Start a chat](https://forged-by-samarth.vercel.app/chat) · [🧮 Get an instant estimate](https://forged-by-samarth.vercel.app/#estimate) · [✉️ Email me](mailto:samp231004@gmail.com)
 
-```bash
-npm install
-cp .env.example .env.local   # fill in values
-npm run dev                  # http://localhost:3000
-```
+</div>
 
-Without `RESEND_API_KEY`, the contact form and estimator log emails to the console in development. In production they return an error until the key is set.
+---
 
-## Make it yours
+## 👋 Hi, I'm Samarth
 
-Everything editable lives in `lib/`:
+I'm an independent software developer. I build fast, modern products for founders and growing businesses, from a single landing page to a full app with accounts, payments and dashboards.
 
-| File | What to change |
+There's no agency and no account manager. **The person replying to your messages is the person writing your code.**
+
+> 📝 **Everything happens in writing.** No calls are needed. We agree on scope, price and the contract over chat, email or WhatsApp, at your pace and in your time zone.
+
+---
+
+## 🛠️ What I can build for you
+
+| | Service | What you get | Outcome |
+| :-: | --- | --- | --- |
+| 🌐 | **Business Websites** | A fast, polished site that explains what you do in seconds, and that you can update yourself | More qualified leads |
+| 🚀 | **SaaS Platforms & MVPs** | Accounts, subscriptions, dashboards and the core workflow your users pay for | Launch and start charging |
+| 📱 | **Mobile Apps** | One codebase for iOS and Android, with offline support and device features | Reach customers on their phones |
+| 📊 | **Admin Dashboards** | One internal tool that replaces spreadsheets and copy-paste | Hours saved every week |
+| ✨ | **AI Integrations** | Assistants that answer from your own documents, smart search and automation | Do more with the same team |
+| 🔌 | **Backend & APIs** | Secure, documented APIs that connect your apps, payments and third-party tools | Systems that talk to each other |
+| ☁️ | **Cloud Deployment** | Hosting, automated deploys, backups and monitoring | Peace of mind at scale |
+| 🛟 | **Maintenance & Support** | Fixes, updates and new features after launch | A product that keeps improving |
+
+---
+
+## 💰 Pricing
+
+Every project gets a **fixed, written quote** before any work starts. These are starting prices:
+
+| Package | From | Typical timeline | Includes |
+| --- | :-: | :-: | --- |
+| 🎯 **Landing Page** | **$200** | 1–2 weeks | Custom design · Mobile-first build · SEO & analytics · Contact form |
+| 🏢 **Business Website** | **$500** | 2–4 weeks | Up to ~8 pages · CMS for easy edits · Performance & SEO · Launch support |
+| 📊 **Admin Dashboard** | **$650** | Depends on scope | Role-based access · Alerts · Analytics & reports · PDF/CSV export |
+| ✨ **AI Feature** | **$300** | Depends on scope | Added to an existing product · Answers from your data · Cost controls |
+| ⭐ **Web Application** | **$1,250** | 6–12 weeks | Auth & user roles · Database & API · Admin dashboard · Cloud deployment |
+| 📱 **Mobile App** | **$1,750** | 8–14 weeks | iOS & Android · Push notifications · Backend & API · Store submission |
+| 🏛️ **Enterprise Solution** | Custom quote | Scoped together | Architecture review · Integrations & SSO · Dedicated availability · SLA options |
+
+🧮 Want a ballpark for your idea right now? Try the [**instant estimator**](https://forged-by-samarth.vercel.app/#estimate).
+
+---
+
+## 🔄 How we'll work together
+
+| Step | Stage | What happens | Duration |
+| :-: | --- | --- | :-: |
+| 1️⃣ | 🔍 **Discovery** | A written back-and-forth about your goals, users and constraints | 1–3 days |
+| 2️⃣ | 📋 **Planning** | A proposal with scope, milestones, a fixed quote and a simple contract | 2–5 days |
+| 3️⃣ | 🎨 **Design** | Wireframes, then clickable screens we refine together | 1–2 weeks |
+| 4️⃣ | 💻 **Development** | Weekly milestones with a live staging link you can try | 2–10 weeks |
+| 5️⃣ | 🧪 **Testing** | Automated tests, cross-device, performance and accessibility checks | Ongoing |
+| 6️⃣ | 🚀 **Launch** | Domain, hosting, analytics and go-live, plus a walkthrough | 1–2 days |
+| 7️⃣ | 🤝 **Support** | Fixes, improvements and new features, on a retainer or as needed | As long as you need |
+
+---
+
+## 🏆 Recent work
+
+### 🩺 Maternal Care Dashboard
+*Healthcare · Backend & Dashboard · Jan 2026 · 2 weeks*
+
+A backend and web dashboard that lets maternal and newborn care teams record patient data and act on automatic risk alerts.
+
+- ⚠️ A rules engine flags high-risk mothers and newborns automatically
+- 🔐 Role-based access, with each facility's data kept separate
+- 📈 Analytics, an alert queue and PDF export of patient timelines
+
+[Read the case study →](https://forged-by-samarth.vercel.app/projects/maternal-care-dashboard)
+
+### 📱 Maternal Care Mobile App
+*Healthcare · Mobile · Sept 2026 · 2 weeks*
+
+The same client came back for a mobile app, built on the backend I'd made for them earlier in the year.
+
+- 📶 Encrypted offline recording that syncs when the signal returns
+- 🩸 Home blood pressure readings from Bluetooth monitors
+- 🌍 Available in 10 languages, including Arabic
+
+[Read the case study →](https://forged-by-samarth.vercel.app/projects/maternal-care-app)
+
+---
+
+## 💬 What clients say
+
+> "Our maternal programme was running on paper registers and spreadsheets. Within about two weeks Samarth gave us a dashboard that flags high-risk readings and puts them in a queue someone owns."
+>
+> **David Agunede**, Programme Founder · *Maternal Care Dashboard*
+
+> "When we needed a mobile app, we didn't want to start over with someone new, so we went back to him. He built it on the same backend, with offline recording for the sites where the signal keeps dropping. Reliable, quick, and honest about what wasn't finished yet."
+>
+> **David Agunede**, Programme Founder · *Maternal Care Mobile App*
+
+---
+
+## ✅ Why work with me
+
+| | |
 | --- | --- |
-| `lib/site.ts` | Email, phone/WhatsApp number, domain, stats (`X+` placeholders) |
-| `lib/content.ts` | Services, process, reasons, tech stack, testimonials (shown once `approved`), pricing "from" amounts, FAQ |
-| `lib/projects.ts` | Case studies: timelines, outcomes, live/GitHub links (marked `TODO`) |
-| `lib/estimator.ts` | Base prices, add-on costs and timeline multipliers for the estimator |
+| 🗣️ **You talk to the developer** | No handoffs. You message the person writing your code. |
+| 💸 **No middlemen** | No agency overhead in your quote. Your budget goes into your product. |
+| ⚡ **Fast iterations** | Feedback on Monday can be live on staging by Tuesday. |
+| 👀 **Transparent by default** | Weekly updates, a shared task board and repository access from day one. |
+| 🧱 **Clean, scalable code** | Typed, tested and documented, so another developer could take over tomorrow. |
+| 🔒 **Your code, your IP** | Everything I build belongs to you, and I'm happy to sign an NDA. |
+| 🤝 **Long-term support** | I'm around after launch, and clients come back as their product grows. |
 
-**Portrait:** save your photo as `public/samarth.jpg` (or `.png` / `.webp`). The About card picks it up at build time and otherwise shows an "SP" monogram.
+---
 
-## Environment variables
+## 🧰 Technology I use
 
-| Variable | Purpose |
+| Area | Tools |
 | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Canonical URL for metadata, sitemap and OpenGraph |
-| `RESEND_API_KEY` | Resend API key |
-| `RESEND_FROM_EMAIL` | Verified sender, e.g. `Samarth Patel <hello@yourdomain.com>` |
-| `CONTACT_TO_EMAIL` | Inbox that receives enquiries and chat notifications (defaults to `site.email`) |
-| `MONGODB_URI` | MongoDB Atlas connection string |
-| `MONGODB_DB` | Database name (defaults to `forge`) |
-| `BETTER_AUTH_SECRET` | Random secret for signing sessions (`openssl rand -base64 32`) |
-| `BETTER_AUTH_URL` | The site's URL; `http://localhost:3000` locally (defaults to `NEXT_PUBLIC_SITE_URL`) |
-| `ADMIN_EMAILS` | Comma-separated emails that get the inbox (defaults to `site.email`) |
-| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Google OAuth client |
-| `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` | GitHub OAuth app |
+| 🎨 **Frontend** | React · Next.js · TypeScript · Tailwind CSS |
+| ⚙️ **Backend** | Node.js · Express · Spring Boot |
+| 🗄️ **Database** | PostgreSQL · MongoDB · Supabase |
+| 📱 **Mobile** | React Native · Expo |
+| ☁️ **Cloud** | AWS · Docker · Vercel |
 
-## On-site chat (MongoDB + Better Auth)
+I choose tools for what your product needs and for who you might hire later, not for novelty.
 
-Clients sign in with Google, GitHub, or a link / 6-digit code sent by email and get a private, persistent thread with you at `/chat`. You reply from `/inbox`. Auth is handled by [Better Auth](https://www.better-auth.com); users, sessions, conversations and messages live in MongoDB, and attachments (up to 4 MB) in GridFS. Every read and write goes through API routes that check the signed-in user can see the conversation. Open threads poll for new messages every few seconds, and the other side gets an email via Resend if they aren't looking at the thread (at most once every 10 minutes).
+---
 
-Without `MONGODB_URI` and `BETTER_AUTH_SECRET` the site still builds; the chat pages show a "coming soon" notice.
+## ❓ Common questions
 
-**Setup**
+<details>
+<summary><b>📞 Do we need to get on a call?</b></summary>
 
-1. Create a free MongoDB Atlas cluster (M0 clusters don't pause when idle). Under **Network Access** allow `0.0.0.0/0` (Vercel has no fixed IPs), create a database user, and copy the connection string into `MONGODB_URI`. Collections and indexes are created automatically.
-2. Set `BETTER_AUTH_SECRET`, and `BETTER_AUTH_URL=http://localhost:3000` for local development.
-   - **Google:** in Google Cloud Console create an OAuth client (type *Web application*) with the authorised redirect URIs `https://forged-by-samarth.vercel.app/api/auth/callback/google` and `http://localhost:3000/api/auth/callback/google`.
-   - **GitHub:** at github.com → Settings → Developer settings → OAuth Apps, create an app with the homepage `https://forged-by-samarth.vercel.app` and callback URL `https://forged-by-samarth.vercel.app/api/auth/callback/github` (GitHub allows one callback per app, so make a second app for localhost if you need it).
-3. Sign-in codes are sent through Resend, so `RESEND_API_KEY` and `RESEND_FROM_EMAIL` must be set (without them, codes are only logged to the console in development).
-4. Sign in at `/login` with an address listed in `ADMIN_EMAILS` (it must be verified, which all three sign-in methods guarantee). From then on `/chat` redirects you to `/inbox`.
+No. I work entirely over messages, so scope, pricing and the contract are all agreed in writing. You get everything documented and can reply whenever suits you.
+</details>
 
-## Deploying to Vercel
+<details>
+<summary><b>⏱️ How long does a project take?</b></summary>
 
-Import the repository in Vercel, add the environment variables above, then deploy. Nothing else is needed.
+A landing page usually takes 1–2 weeks, a business website 2–4 weeks, and a first version of a web or mobile app 6–14 weeks. You'll get a written timeline with weekly milestones.
+</details>
 
-## Structure
+<details>
+<summary><b>🌍 Do you work with international clients?</b></summary>
 
-```
-app/                  routes, metadata, sitemap, robots, OG image, API routes
-  api/contact         enquiry form → Resend (with attachment + confirmation email)
-  api/estimate        emails the visitor their estimate (recomputed server-side)
-  api/auth/[...all]   Better Auth (OAuth callbacks, email codes, sessions)
-  api/chat/*          send/poll messages, inbox list, attachment downloads
-  login, auth/signout email-code / OAuth sign-in and sign-out
-  chat, inbox         client conversation and your inbox
-  projects/[slug]     statically generated case-study pages
-components/sections/  one file per homepage section
-components/motion/    Reveal, TextReveal, Magnetic, SpotlightCard
-components/chat/      chat thread, inbox, login form
-components/ui/        Button, Input, Accordion, Section helpers, icons
-lib/                  content, config, validation, estimator logic, email helpers
-lib/auth.ts           Better Auth config and getViewer()
-lib/chat-store.ts     MongoDB queries for conversations, messages and attachments
-```
+Yes. Everything happens asynchronously, so time zones rarely slow anything down. I'm based in India (IST, UTC+5:30).
+</details>
+
+<details>
+<summary><b>🔧 Can you take over an existing project?</b></summary>
+
+Yes. I start with a short paid code review to understand the codebase and flag risks. Then I can fix bugs, add features or improve the architecture step by step.
+</details>
+
+<details>
+<summary><b>💳 How does payment work?</b></summary>
+
+Fixed-scope projects are split into milestones, for example a deposit to start and then payments tied to agreed deliverables. Ongoing work can be billed monthly. I accept bank transfer and common international payment methods, with clear invoices every time.
+</details>
+
+<details>
+<summary><b>🤐 Can you sign an NDA?</b></summary>
+
+Of course. I can sign yours before we discuss details, or provide a simple mutual one.
+</details>
+
+---
+
+## 📬 Let's talk about your project
+
+| Channel | |
+| --- | --- |
+| 💬 **On-site chat** (fastest) | [forged-by-samarth.vercel.app/chat](https://forged-by-samarth.vercel.app/chat) |
+| 📝 **Project form** | [forged-by-samarth.vercel.app/#contact](https://forged-by-samarth.vercel.app/#contact) |
+| ✉️ **Email** | [samp231004@gmail.com](mailto:samp231004@gmail.com) |
+| 🟢 **WhatsApp** | [+91 83201 81139](https://wa.me/918320181139) |
+| 💼 **LinkedIn** | [linkedin.com/in/samp231004](https://www.linkedin.com/in/samp231004/) |
+| 🐙 **GitHub** | [github.com/SamP231004](https://github.com/SamP231004) |
+
+<div align="center">
+
+**I usually reply within 24 hours.** ⏱️
+
+*Tell me what you're building, who it's for and roughly when you need it.*
+
+</div>

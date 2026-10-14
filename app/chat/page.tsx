@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ChatThread } from "@/components/chat/chat-thread";
 import { ChatUnavailable } from "@/components/chat/chat-unavailable";
 import { SignOutButton } from "@/components/chat/sign-out-button";
-import { type Conversation, type Message } from "@/lib/chat";
+import { chatEnabled, getViewer } from "@/lib/auth";
+import { PENDING_NAME_COOKIE } from "@/lib/chat";
+import { ensureConversation, listMessages, markRead } from "@/lib/chat-store";
 import { site } from "@/lib/site";
-import { chatEnabled } from "@/lib/supabase/config";
-import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 
@@ -18,24 +19,13 @@ export const metadata: Metadata = {
 export default async function ChatPage() {
   if (!chatEnabled) return <ChatUnavailable />;
 
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getViewer();
   if (!user) redirect("/login?next=/chat");
+  if (user.isAdmin) redirect("/inbox");
 
-  const { data: isAdmin } = await supabase.rpc("is_admin");
-  if (isAdmin) redirect("/inbox");
-
-  const { data: conversation, error } = await supabase.rpc("ensure_conversation").single<Conversation>();
-  if (error || !conversation) throw new Error("Couldn't open your conversation.");
-
-  const { data: messages } = await supabase
-    .from("messages")
-    .select("*")
-    .eq("conversation_id", conversation.id)
-    .order("created_at", { ascending: true })
-    .limit(500);
+  const pendingName = (await cookies()).get(PENDING_NAME_COOKIE)?.value;
+  const conversation = await ensureConversation(user, pendingName && decodeURIComponent(pendingName));
+  const [messages] = await Promise.all([listMessages(conversation.id), markRead(user, conversation.id)]);
 
   return (
     <section className="container-page pb-8 pt-24 sm:pt-28">
@@ -57,7 +47,7 @@ export default async function ChatPage() {
             conversationId={conversation.id}
             userId={user.id}
             viewer="client"
-            initialMessages={(messages ?? []) as Message[]}
+            initialMessages={messages}
             greeting={
               <div className="mx-auto mb-6 max-w-md rounded-2xl border border-dashed border-border p-5 text-center text-sm text-muted-foreground">
                 <p className="font-medium text-foreground">Hi{conversation.client_name ? ` ${conversation.client_name.split(" ")[0]}` : ""} 👋</p>

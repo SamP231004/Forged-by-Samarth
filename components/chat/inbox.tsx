@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { ChatThread } from "@/components/chat/chat-thread";
 import { SignOutButton } from "@/components/chat/sign-out-button";
 import { displayName, type Conversation, type Message } from "@/lib/chat";
-import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -35,19 +34,20 @@ export function Inbox({ adminId, adminEmail, initialConversations, selectedId, i
 
   // Keep the list fresh as clients write in and read receipts change.
   useEffect(() => {
-    const supabase = createClient();
-    const channel = supabase
-      .channel("inbox")
-      .on("postgres_changes", { event: "*", schema: "public", table: "conversations" }, (payload) => {
-        const row = payload.new as Conversation;
-        if (!row?.id) return;
-        setConversations((prev) =>
-          [row, ...prev.filter((c) => c.id !== row.id)].sort((a, b) => b.last_message_at.localeCompare(a.last_message_at)),
-        );
-      })
-      .subscribe();
+    const refresh = async () => {
+      if (document.visibilityState !== "visible") return;
+      try {
+        const res = await fetch("/api/chat/conversations", { cache: "no-store" });
+        if (res.ok) setConversations(((await res.json()) as { conversations: Conversation[] }).conversations);
+      } catch {
+        // Try again on the next tick.
+      }
+    };
+    const timer = setInterval(refresh, 10_000);
+    document.addEventListener("visibilitychange", refresh);
     return () => {
-      void supabase.removeChannel(channel);
+      clearInterval(timer);
+      document.removeEventListener("visibilitychange", refresh);
     };
   }, []);
 

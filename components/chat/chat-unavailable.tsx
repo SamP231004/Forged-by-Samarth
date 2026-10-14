@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { links } from "@/lib/site";
 
-/** Shown when Supabase env vars aren't set, so the site still builds and runs. */
+/** Shown when MongoDB / Better Auth env vars aren't set, so the site still builds and runs. */
 export function ChatUnavailable() {
   return (
     <section className="grid min-h-[80dvh] place-items-center px-5 pt-24 text-center">

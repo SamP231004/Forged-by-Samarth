@@ -3,10 +3,9 @@
 import { ArrowUp, FileText, Loader2, Paperclip, X } from "lucide-react";
 import { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ATTACHMENT_BUCKET, MAX_MESSAGE_LENGTH, type Message } from "@/lib/chat";
-import { createClient } from "@/lib/supabase/client";
+import { byCreatedAt, MAX_ATTACHMENT_BYTES, MAX_MESSAGE_LENGTH, type Message } from "@/lib/chat";
 import { cn } from "@/lib/utils";
-import { ACCEPTED_FILE_TYPES, MAX_FILE_BYTES } from "@/lib/validations";
+import { ACCEPTED_FILE_TYPES } from "@/lib/validations";
 
 type Props = {
   conversationId: string;
@@ -20,8 +19,10 @@ type Props = {
 const dayFmt = new Intl.DateTimeFormat(undefined, { weekday: "short", month: "short", day: "numeric" });
 const timeFmt = new Intl.DateTimeFormat(undefined, { hour: "numeric", minute: "2-digit" });
 
+/** How often an open, visible thread checks for new messages. */
+const POLL_MS = 4000;
+
 export function ChatThread({ conversationId, userId, viewer, initialMessages, greeting }: Props) {
-  const supabase = createClient();
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [text, setText] = useState("");
   const [file, setFile] = useState<File | null>(null);
@@ -30,35 +31,44 @@ export function ChatThread({ conversationId, userId, viewer, initialMessages, gr
   const scroller = useRef<HTMLDivElement>(null);
   const textarea = useRef<HTMLTextAreaElement>(null);
   const fileInput = useRef<HTMLInputElement>(null);
+  const latest = useRef(initialMessages.at(-1)?.created_at);
 
-  const addMessage = useCallback((m: Message) => {
-    setMessages((prev) => (prev.some((x) => x.id === m.id) ? prev : [...prev, m]));
+  const addMessages = useCallback((incoming: Message[]) => {
+    if (incoming.length === 0) return;
+    setMessages((prev) => {
+      const fresh = incoming.filter((m) => !prev.some((x) => x.id === m.id));
+      return fresh.length ? [...prev, ...fresh].sort(byCreatedAt) : prev;
+    });
   }, []);
 
-  const markRead = useCallback(() => {
-    if (document.visibilityState === "visible") void supabase.rpc("mark_read", { p_conversation: conversationId });
-  }, [supabase, conversationId]);
-
-  // Live updates for new messages in this conversation.
   useEffect(() => {
-    markRead();
-    const channel = supabase
-      .channel(`messages:${conversationId}`)
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "messages", filter: `conversation_id=eq.${conversationId}` },
-        (payload) => {
-          addMessage(payload.new as Message);
-          markRead();
-        },
-      )
-      .subscribe();
-    document.addEventListener("visibilitychange", markRead);
-    return () => {
-      document.removeEventListener("visibilitychange", markRead);
-      void supabase.removeChannel(channel);
+    latest.current = messages.at(-1)?.created_at;
+  }, [messages]);
+
+  // Poll for new messages while the thread is on screen. Each fetch also marks it read.
+  useEffect(() => {
+    let inFlight = false;
+    const poll = async () => {
+      if (inFlight || document.visibilityState !== "visible") return;
+      inFlight = true;
+      try {
+        const params = new URLSearchParams({ conversationId });
+        if (latest.current) params.set("after", latest.current);
+        const res = await fetch(`/api/chat/messages?${params}`, { cache: "no-store" });
+        if (res.ok) addMessages(((await res.json()) as { messages: Message[] }).messages);
+      } catch {
+        // Offline or a blip; the next tick retries.
+      } finally {
+        inFlight = false;
+      }
     };
-  }, [supabase, conversationId, addMessage, markRead]);
+    const timer = setInterval(poll, POLL_MS);
+    document.addEventListener("visibilitychange", poll);
+    return () => {
+      clearInterval(timer);
+      document.removeEventListener("visibilitychange", poll);
+    };
+  }, [conversationId, addMessages]);
 
   // Keep the newest message in view.
   useLayoutEffect(() => {
@@ -68,7 +78,7 @@ export function ChatThread({ conversationId, userId, viewer, initialMessages, gr
   const pickFile = (f: File | undefined) => {
     setError("");
     if (!f) return;
-    if (f.size > MAX_FILE_BYTES) return setError("Files must be under 8 MB.");
+    if (f.size > MAX_ATTACHMENT_BYTES) return setError("Files must be under 4 MB.");
     if (!ACCEPTED_FILE_TYPES.includes(f.type)) return setError("Please attach a PDF, image, Word document, text file or ZIP.");
     setFile(f);
   };
@@ -81,56 +91,23 @@ export function ChatThread({ conversationId, userId, viewer, initialMessages, gr
     setError("");
 
     try {
-      let attachment: Pick<Message, "attachment_path" | "attachment_name" | "attachment_size" | "attachment_type"> = {
-        attachment_path: null,
-        attachment_name: null,
-        attachment_size: null,
-        attachment_type: null,
-      };
-      if (file) {
-        const safeName = file.name.replace(/[^\w.\-]+/g, "_").slice(-100);
-        const path = `${conversationId}/${crypto.randomUUID()}-${safeName}`;
-        const { error: uploadError } = await supabase.storage
-          .from(ATTACHMENT_BUCKET)
-          .upload(path, file, { contentType: file.type, upsert: false });
-        if (uploadError) throw new Error("The attachment couldn't be uploaded. Please try again.");
-        attachment = {
-          attachment_path: path,
-          attachment_name: file.name.slice(0, 200),
-          attachment_size: file.size,
-          attachment_type: file.type,
-        };
-      }
+      const form = new FormData();
+      form.set("conversationId", conversationId);
+      form.set("body", body);
+      if (file) form.set("file", file);
+      const res = await fetch("/api/chat/messages", { method: "POST", body: form });
+      const data = (await res.json().catch(() => null)) as { message?: Message; error?: string } | null;
+      if (!res.ok || !data?.message) throw new Error(data?.error ?? "Your message couldn't be sent. Please try again.");
 
-      const { data, error: insertError } = await supabase
-        .from("messages")
-        .insert({ conversation_id: conversationId, sender_id: userId, body, ...attachment })
-        .select()
-        .single();
-      if (insertError || !data) throw new Error("Your message couldn't be sent. Please try again.");
-
-      addMessage(data as Message);
+      addMessages([data.message]);
       setText("");
       setFile(null);
       textarea.current?.focus();
-
-      // Let the other side know by email (throttled server-side).
-      void fetch("/api/chat/notify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ conversationId }),
-      }).catch(() => {});
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
       setSending(false);
     }
-  };
-
-  const openAttachment = async (path: string) => {
-    const { data, error } = await supabase.storage.from(ATTACHMENT_BUCKET).createSignedUrl(path, 60);
-    if (error || !data) return setError("That file couldn't be opened.");
-    window.open(data.signedUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -162,10 +139,11 @@ export function ChatThread({ conversationId, userId, viewer, initialMessages, gr
                         {m.body}
                       </p>
                     )}
-                    {m.attachment_path && (
-                      <button
-                        type="button"
-                        onClick={() => openAttachment(m.attachment_path!)}
+                    {m.attachment_id && (
+                      <a
+                        href={`/api/chat/attachments/${m.attachment_id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="flex max-w-full items-center gap-3 rounded-2xl border border-border bg-card px-3.5 py-2.5 text-left transition-colors hover:border-foreground/20"
                       >
                         <FileText className="size-4 shrink-0 text-muted-foreground" aria-hidden />
@@ -177,7 +155,7 @@ export function ChatThread({ conversationId, userId, viewer, initialMessages, gr
                             </span>
                           )}
                         </span>
-                      </button>
+                      </a>
                     )}
                     <time dateTime={m.created_at} className="px-1 text-[11px] text-muted-foreground">
                       {timeFmt.format(new Date(m.created_at))}

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { budgetOptions, featureOptions, projectTypes, timelineOptions } from "./estimator";
+import { CONTRACT_STATUSES, CURRENCIES, PROJECT_STATUSES } from "./chat";
 
 export const MAX_FILE_BYTES = 8 * 1024 * 1024;
 export const ACCEPTED_FILE_TYPES = [
@@ -62,3 +63,49 @@ export const estimateEmailSchema = z.object({
   email: z.string().trim().email("Enter a valid email"),
   input: estimateInputSchema,
 });
+
+const isoDate = z
+  .string()
+  .regex(/^\d{4}-\d{2}-\d{2}$/)
+  .nullable()
+  .or(z.literal("").transform(() => null));
+const money = z.number().finite().min(0).max(1_000_000_000);
+
+/** The project summary the admin saves beside a conversation. */
+export const projectSchema = z
+  .object({
+    title: z.string().trim().min(1, "Give the project a name.").max(120),
+    status: z.enum(PROJECT_STATUSES),
+    start_date: isoDate,
+    due_date: isoDate,
+    currency: z.enum(CURRENCIES),
+    total_amount: money,
+    amount_paid: money,
+    contract_status: z.enum(CONTRACT_STATUSES),
+    contract_url: z
+      .string()
+      .trim()
+      .max(500)
+      .refine((v) => v === "" || /^https:\/\/\S+$/.test(v) || /^\/api\/chat\/attachments\/[0-9a-f]{24}$/.test(v), "Use an https:// link.")
+      .transform((v) => v || null)
+      .nullable(),
+    contract_signed_on: isoDate,
+    next_step: z.string().trim().max(300),
+    milestones: z
+      .array(
+        z.object({
+          id: z.string().min(1).max(40),
+          title: z.string().trim().min(1, "Name every milestone.").max(120),
+          due_date: isoDate,
+          amount: money.nullable(),
+          done: z.boolean(),
+        }),
+      )
+      .max(20),
+  })
+  .refine((p) => p.amount_paid <= p.total_amount || p.total_amount === 0, {
+    message: "Amount paid can't be more than the total.",
+    path: ["amount_paid"],
+  });
+
+export type ProjectInput = z.infer<typeof projectSchema>;

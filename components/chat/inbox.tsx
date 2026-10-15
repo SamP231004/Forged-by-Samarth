@@ -3,8 +3,8 @@
 import { ArrowLeft, Inbox as InboxIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ChatThread } from "@/components/chat/chat-thread";
 import { SignOutButton } from "@/components/chat/sign-out-button";
+import { ChatWorkspace } from "@/components/chat/workspace";
 import { displayName, type Conversation, type Message } from "@/lib/chat";
 import { cn } from "@/lib/utils";
 
@@ -56,7 +56,7 @@ export function Inbox({ adminId, adminEmail, initialConversations, selectedId, i
     c.last_sender_id !== null && c.last_sender_id !== adminId && c.last_message_at > c.admin_last_read_at;
 
   return (
-    <section className="container-page pb-8 pt-24 sm:pt-28">
+    <section className="mx-auto w-full max-w-[96rem] px-5 pb-8 pt-24 sm:px-8 sm:pt-28">
       <div className="grid h-[calc(100dvh-8rem)] overflow-hidden rounded-3xl border border-border bg-card/60 shadow-[0_30px_80px_-40px_rgb(0_0_0/0.4)] backdrop-blur-xl sm:h-[calc(100dvh-10rem)] md:grid-cols-[20rem_1fr]">
         {/* Conversation list */}
         <aside className={cn("flex min-h-0 flex-col border-border md:border-r", selected && "hidden md:flex")}>
@@ -109,22 +109,27 @@ export function Inbox({ adminId, adminEmail, initialConversations, selectedId, i
         {/* Thread */}
         <div className={cn("flex min-h-0 flex-col", !selected && "hidden md:flex")}>
           {selected ? (
-            <>
-              <header className="flex items-center gap-3 border-b border-border px-4 py-3 sm:px-6">
-                <Link href="/inbox" className="grid size-9 place-items-center rounded-full border border-border md:hidden" aria-label="Back to inbox">
-                  <ArrowLeft className="size-4" />
-                </Link>
-                <div className="min-w-0">
-                  <h2 className="truncate text-sm font-medium">{displayName(selected)}</h2>
-                  <a href={`mailto:${selected.client_email}`} className="block truncate text-xs text-muted-foreground hover:text-foreground">
+            <ChatWorkspace
+              key={selected.id}
+              conversationId={selected.id}
+              userId={adminId}
+              viewer="admin"
+              peerName={displayName(selected).split(" ")[0]}
+              initial={{ messages: initialMessages, peerLastReadAt: selected.client_last_read_at, project: selected.project }}
+              header={{
+                leading: (
+                  <Link href="/inbox" className="grid size-9 shrink-0 place-items-center rounded-full border border-border md:hidden" aria-label="Back to inbox">
+                    <ArrowLeft className="size-4" />
+                  </Link>
+                ),
+                title: <h2 className="truncate text-sm font-medium">{displayName(selected)}</h2>,
+                subtitle: (
+                  <a href={`mailto:${selected.client_email}`} className="hover:text-foreground">
                     {selected.client_email}
                   </a>
-                </div>
-              </header>
-              <div className="min-h-0 flex-1">
-                <ChatThread key={selected.id} conversationId={selected.id} userId={adminId} viewer="admin" initialMessages={initialMessages} />
-              </div>
-            </>
+                ),
+              }}
+            />
           ) : (
             <div className="grid flex-1 place-items-center p-6 text-center text-sm text-muted-foreground">
               Select a conversation to reply.

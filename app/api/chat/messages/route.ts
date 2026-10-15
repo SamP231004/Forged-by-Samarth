@@ -1,6 +1,6 @@
 import { after, NextResponse } from "next/server";
 import { getViewer, type Viewer } from "@/lib/auth";
-import { displayName, MAX_ATTACHMENT_BYTES, MAX_MESSAGE_LENGTH, type Conversation, type Message } from "@/lib/chat";
+import { displayName, MAX_ATTACHMENT_BYTES, MAX_MESSAGE_LENGTH, type Conversation, type Message, type ThreadSync } from "@/lib/chat";
 import { claimNotification, getConversation, listMessages, markRead, sendMessage } from "@/lib/chat-store";
 import { layout, ownerInbox, sendEmail } from "@/lib/email";
 import { rateLimit } from "@/lib/rate-limit";
@@ -10,7 +10,7 @@ import { ACCEPTED_FILE_TYPES } from "@/lib/validations";
 
 export const runtime = "nodejs";
 
-/** New messages since `after` (or the latest page). Fetching a thread marks it read. */
+/** Messages new or changed since `after` (or the latest page). Fetching a thread marks it read. */
 export async function GET(req: Request) {
   const viewer = await getViewer();
   if (!viewer) return NextResponse.json({ error: "Not signed in." }, { status: 401 });
@@ -24,7 +24,12 @@ export async function GET(req: Request) {
   if (after && Number.isNaN(after.getTime())) return NextResponse.json({ error: "Invalid request." }, { status: 400 });
 
   const [messages] = await Promise.all([listMessages(conversation.id, after), markRead(viewer, conversation.id)]);
-  return NextResponse.json({ messages }, { headers: { "Cache-Control": "no-store" } });
+  const sync: ThreadSync = {
+    messages,
+    peerLastReadAt: viewer.isAdmin ? conversation.client_last_read_at : conversation.admin_last_read_at,
+    project: conversation.project,
+  };
+  return NextResponse.json(sync, { headers: { "Cache-Control": "no-store" } });
 }
 
 export async function POST(req: Request) {
@@ -58,7 +63,8 @@ export async function POST(req: Request) {
   }
   if (!body && !file) return NextResponse.json({ error: "Write a message or attach a file." }, { status: 400 });
 
-  const message = await sendMessage(viewer, conversation.id, body, file);
+  const replyToId = String(form.get("replyToId") ?? "") || null;
+  const message = await sendMessage(viewer, conversation.id, body, file, replyToId);
 
   // Let the other side know by email once the response has gone out.
   after(() => notify(viewer, conversation, message).catch((e) => console.error("[chat] notification failed", e)));

@@ -1,18 +1,29 @@
 import "server-only";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import { site } from "./site";
 import { escapeHtml } from "./utils";
 
-const apiKey = process.env.RESEND_API_KEY;
-const from = process.env.RESEND_FROM_EMAIL ?? `${site.name} <onboarding@resend.dev>`;
-const inbox = process.env.CONTACT_TO_EMAIL ?? site.email;
+const user = process.env.GMAIL_USER ?? site.email;
+// Google displays app passwords in groups of four; the spaces aren't part of them.
+const pass = process.env.GMAIL_APP_PASSWORD?.replace(/\s+/g, "");
 
-export const resend = apiKey ? new Resend(apiKey) : null;
+// Fail well before a serverless function times out.
+const transport = pass
+  ? nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: { user, pass },
+      connectionTimeout: 10_000,
+      greetingTimeout: 10_000,
+      socketTimeout: 20_000,
+    })
+  : null;
 
 type Attachment = { filename: string; content: Buffer };
 
 /**
- * Sends an email through Resend. Without an API key, emails are logged in
+ * Sends an email through Gmail. Without an app password, emails are logged in
  * development and rejected in production so failures are never silent.
  */
 export async function sendEmail(opts: {
@@ -22,18 +33,17 @@ export async function sendEmail(opts: {
   replyTo?: string;
   attachments?: Attachment[];
 }) {
-  if (!resend) {
+  if (!transport) {
     if (process.env.NODE_ENV !== "production") {
       console.info(`[email:dev] To: ${opts.to} | Subject: ${opts.subject}`);
       return;
     }
-    throw new Error("Email is not configured. Set RESEND_API_KEY.");
+    throw new Error("Email is not configured. Set GMAIL_APP_PASSWORD.");
   }
-  const { error } = await resend.emails.send({ from, ...opts });
-  if (error) throw new Error(error.message);
+  await transport.sendMail({ from: { name: site.name, address: user }, ...opts });
 }
 
-export const ownerInbox = inbox;
+export const ownerInbox = process.env.CONTACT_TO_EMAIL ?? site.email;
 
 /** Minimal, client-safe email layout. */
 export function layout(title: string, body: string) {
